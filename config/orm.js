@@ -7,7 +7,7 @@ var connection = require("./connection.js");
 // These help avoid SQL injection
 // https://en.wikipedia.org/wiki/SQL_injection
 var orm = {
-    selectAll: (table) => {
+    all: (table) => {
         let queryString = "SELECT * FROM ??";
         connection.query(queryString, [table], 
             (err,result) => {
@@ -17,7 +17,7 @@ var orm = {
 
     },
 
-    insertOne: (table,colName,devouredCol,burgerName, devouredVal) => {
+    create: (table,colName,devouredCol,burgerName, devouredVal) => {
         let queryString = "INSERT INTO ?? (??, ??) VALUES (?, ?);"
         connection.query(queryString, [table,colName,devouredCol,burgerName,devouredVal], (err,result) => {
             if(err) throw err;
@@ -25,7 +25,7 @@ var orm = {
         });
     },
 
-    updateOne: (table, colName, colValue, burgerID) => {
+    update: (table, colName, colValue, burgerID) => {
         let queryString = "UPDATE ?? SET ?? = ? WHERE id = ?"
         connection.query(queryString, [table, colName,colValue,burgerID], (err,result) => {
             if(err) throw err;
